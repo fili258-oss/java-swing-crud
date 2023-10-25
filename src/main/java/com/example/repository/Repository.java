@@ -9,5 +9,5 @@ public interface Repository<T>{
 
     void save(T t) throws Exception;
     
-    void delete();
+    void delete(Integer id) throws Exception;
 }

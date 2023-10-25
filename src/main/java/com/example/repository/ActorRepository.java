@@ -17,10 +17,13 @@ public class ActorRepository implements Repository<Actor> {
     private Connection getConnection() throws Exception{
         return DatabaseConnection.getInstance();
     }
+
     @Override
-    public void delete() {
-        // TODO Auto-generated method stub
-        
+    public void delete(Integer id) throws Exception {
+        try (PreparedStatement myStat= getConnection().prepareStatement("Delete from sakila.actor where actor_id = ?")) {
+            myStat.setInt(1, id);
+            myStat.executeUpdate();
+        } 
     }
 
     @Override
@@ -41,12 +44,25 @@ public class ActorRepository implements Repository<Actor> {
 
     @Override
     public Actor getById(Integer id) throws Exception {
-        
+        Actor actor = null;
+        try (PreparedStatement myStat= getConnection().prepareStatement("Select * from sakila.actor where actor_id = ?")) {
+            myStat.setInt(1, id);
+            try (ResultSet myResult = myStat.executeQuery()) {
+                if( myResult.next()){
+                    actor = createActor(myResult);
+                }
+            } 
+        } 
+        return actor;
     }
 
     @Override
     public void save(Actor actor) throws Exception {
-        
+          try (PreparedStatement myStat= getConnection().prepareStatement("insert into sakila.actor (first_name,last_name) values (?,?)")) {
+            myStat.setString(1, actor.getFirst_name());
+            myStat.setString(2, actor.getLast_name());
+            myStat.executeUpdate();
+        } 
     }
 
      private Actor createActor(ResultSet myResultSet) throws SQLException {
