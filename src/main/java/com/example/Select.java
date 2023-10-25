@@ -16,13 +16,13 @@ public class Select {
           Repository<Actor> repository = new ActorRepository();
           //repository.delete(201);
             Actor fran = new Actor();
-            fran.setactor_id(204);
-            fran.setFirst_name("Francisco");
-            fran.setLast_name("Rojas");
+            fran.setactor_id(205);
+            fran.setFirst_name("Pepito");
+            fran.setLast_name("Perez");
             repository.save(fran);
 
-          System.out.println(repository.getById(201));
-          //repository.findAll().forEach(System.out::println);
+          //System.out.println(repository.getById(201));
+          repository.findAll().forEach(System.out::println);
         } 
         catch (Exception e) {
             e.printStackTrace();   
