@@ -1,10 +1,12 @@
 package com.example.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.util.jar.JarEntry;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,13 +21,19 @@ public class SwingApp extends JFrame{
     private final JTable ActorTable;
 
     public SwingApp(){
-        setTitle("Gestion Sakila");
+        setTitle("Gestión de actores Sakilla");
+        //No redimensionable
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600,300);
+        setSize(1000,600);
+        /* setLocation(100, 200); */
+        /* setBounds(525, 350, 1000, 700); */
+        setLocationRelativeTo(null);
 
         ActorTable = new JTable();
         JScrollPane scrollPane = new JScrollPane(ActorTable);
         add(scrollPane,BorderLayout.CENTER);
+        
 
         JButton addButton = new JButton("Agregar");
         JButton updateButton = new JButton("Actualizar");
@@ -38,13 +46,14 @@ public class SwingApp extends JFrame{
 
         add(buttonPanel,BorderLayout.SOUTH);
 
+        initiComponents();
         ActorRepository = new ActorRepository();
 
         //refreshTable();
 
         addButton.addActionListener(e-> {
             try {
-               // addActor();
+               System.out.println("Hola mundo");
             } catch (Exception ex) {
                 ex.printStackTrace(); 
             }
@@ -67,4 +76,15 @@ public class SwingApp extends JFrame{
         });
 
     }
+
+    public void initiComponents(){
+        JPanel panel = new JPanel();//Creación de un panel
+        /* panel.setBackground(Color.gray); */
+        this.getContentPane().add(panel);//Agregamos el panel a la ventana
+
+        JLabel title = new JLabel("Administración de actores");
+        panel.add(title);
+    }
+
+    
 }
